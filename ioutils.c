@@ -24,13 +24,8 @@ int read_line(int fd, char** line_ptr)
       break;
     }
   }
-
   *line_ptr = malloc(sizeof(char) * k);
-
   for (int i = 0; i < k; ++i)
-  {
-    *line_ptr[i] = buff[i];
-  }
-
+    (*line_ptr)[i] = buff[i];
   return k;
 }
