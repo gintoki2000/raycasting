@@ -1,4 +1,6 @@
 #include "types.h"
+#include "level_parser.h"
+#include "ioutils.h"
 
 int main(int argc, char** argv)
 {

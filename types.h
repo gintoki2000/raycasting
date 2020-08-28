@@ -1,19 +1,6 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <mlx.h>
-
-#include "ioutils.h"
-#include "level-parser.h"
-
-
-
 typedef unsigned int u32;
 typedef signed int s32;
 typedef unsigned short u16;
@@ -46,4 +33,4 @@ typedef struct context {
   void *mlx_ptr;
 } context_t;
 
-#endif // TYPES_H
+#endif

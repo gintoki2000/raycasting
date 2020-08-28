@@ -1,4 +1,5 @@
-#include "types.h"
+#include "ioutils.h"
+
 
 int read_line(int fd, char** line_ptr)
 {
@@ -67,14 +68,3 @@ int 	ft_isdigit(int c)
 	return (c >= 48 && c <= 57);
 }
 
-static int	parse_number(const char *str)
-{
-	int	num;
-	int i;
-
-	num = 0;
-	i = 0;
-	while (ft_isdigit(str[i]))
-		num = num * 10 + str[i++] - 48;
-	return (num);
-}

@@ -1,6 +1,18 @@
-#include "types.h"
+#include "level_parser.h"
 
-static int parse_resolution(level_data_t* level_data, const char* line)
+static int	parse_number(const char *str)
+{
+	int	num;
+	int i;
+
+	num = 0;
+	i = 0;
+	while (ft_isdigit(str[i]))
+		num = num * 10 + str[i++] - 48;
+	return (num);
+}
+
+static int parse_resolution(level_data_t *level_data, const char *line)
 {
   char buff[10];
   int  i = 0;
@@ -24,7 +36,7 @@ static int parse_resolution(level_data_t* level_data, const char* line)
   level_data->window_height = parse_number(buff);
   return 0;
 }
-static int parse(level_data_t* level_data, int fd)
+static int parse(level_data_t *level_data, int fd)
 {
   char* line = NULL;
   while (read_line(fd, &line) > 0)
@@ -38,15 +50,13 @@ static int parse(level_data_t* level_data, int fd)
   return 0;
 }
 
-level_data_t 	*load_level_data(const char* file)
+level_data_t 	*load_level_data(const char *file)
 {
   int fd = open(file, O_RDONLY);
   if (fd < 0)
-  {
     return NULL;
-  }
 
-  level_data_t* level_data = malloc(sizeof(level_data));
+  level_data_t *level_data = malloc(sizeof(level_data));
 
   if (parse(level_data, fd) == -1)
   {
