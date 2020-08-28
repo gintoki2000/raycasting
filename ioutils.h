@@ -10,7 +10,6 @@ int		ft_check_arg(char *argv, char *name);
 int		ft_check_format(char *argv, char *format);
 
 int		ft_isdigit(int c);
-
-int		read_line(int fd, char** line_ptr);
+int		ft_strncmp(const char *s1, const char *s2, int n);
 
 #endif

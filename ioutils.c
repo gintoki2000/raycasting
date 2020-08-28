@@ -1,31 +1,5 @@
 #include "ioutils.h"
 
-
-int read_line(int fd, char** line_ptr)
-{
-  int  k = 0; /*byte read*/
-  char buff[500];
-  char c;
-
-  if (fd < 0)
-    return -1;
-
-  while (read(fd, &c, 1) > 0)
-  {
-    if (c != '\n')
-      buff[k++] = c;
-    else
-    {
-      buff[k++] = '\0';
-      break;
-    }
-  }
-  *line_ptr = malloc(sizeof(char) * k);
-  for (int i = 0; i < k; ++i)
-    (*line_ptr)[i] = buff[i];
-  return k;
-}
-
 int		ft_strlen(const char *str)
 {
 	int	i;
@@ -68,3 +42,17 @@ int 	ft_isdigit(int c)
 	return (c >= 48 && c <= 57);
 }
 
+int		ft_strncmp(const char *s1, const char *s2, int n)
+{
+	int i;
+
+	i = 0;
+	if (n <= 0)
+		return (0);
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+		i++;
+	if ((unsigned char)s1[i] - (unsigned char)s2[i])
+		return (0);
+	else
+		return (1);
+}
