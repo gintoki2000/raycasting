@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thi-nguy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/18 11:46:26 by thi-nguy          #+#    #+#             */
-/*   Updated: 2020/09/23 10:03:02 by thi-nguy         ###   ########.fr       */
+/*   Created: 2019/11/08 15:06:37 by thi-nguy          #+#    #+#             */
+/*   Updated: 2019/11/19 14:25:10 by thi-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int	save;
-	t_mlx mlx;
-	
-	save = 0;
-	mlx.ptr = 0;
-	if (ac < 4) 
+	size_t pos;
+	size_t i;
+
+	if (!*needle)
+		return ((char*)haystack);
+	pos = 0;
+	while (haystack[pos] != '\0' && pos < len)
 	{
-		if (check_format(av[1], ".cub"))
+		if (haystack[pos] == needle[0])
 		{
-			if (ac == 3 && check_arg(av[2], "--save"))
-			{
-				save = 1;
-				run_program(save, av/*, t_mlx *mlx*/);
-			}
-			else if (ac == 2)
-				run_program(save, av/*, t_mlx *mlx*/);
+			i = 1;
+			while (needle[i] != '\0' && haystack[pos + i] == needle[i] &&
+			(pos + i < len))
+				i++;
+			if (needle[i] == '\0')
+				return ((char *)&haystack[pos]);
 		}
-		else
-			write(2, "Error : Invalid arguments\n", 26);
+		++pos;
 	}
-	else
-		write(2, "Error : Invalid arguments\n", 26);
-	
 	return (0);
 }

@@ -6,30 +6,11 @@
 /*   By: thi-nguy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/09 13:32:19 by thi-nguy          #+#    #+#             */
-/*   Updated: 2020/01/17 16:24:58 by thi-nguy         ###   ########.fr       */
+/*   Updated: 2020/09/18 11:05:38 by thi-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char		*ft_strsub(char const *s, unsigned int start, size_t len)
-{
-	char	*sub_str;
-	size_t	i;
-
-	i = 0;
-	sub_str = (char *)malloc(len + 1);
-	if (sub_str == NULL || s == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		sub_str[i] = s[start];
-		i++;
-		start++;
-	}
-	sub_str[i] = '\0';
-	return (sub_str);
-}
 
 t_arr		*ft_newlist(const int fd)
 {

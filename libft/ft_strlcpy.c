@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: thi-nguy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/09/18 11:46:26 by thi-nguy          #+#    #+#             */
-/*   Updated: 2020/09/23 10:03:02 by thi-nguy         ###   ########.fr       */
+/*   Created: 2019/11/08 11:37:43 by thi-nguy          #+#    #+#             */
+/*   Updated: 2019/11/26 13:17:36 by thi-nguy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int main(int ac, char **av)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int	save;
-	t_mlx mlx;
-	
-	save = 0;
-	mlx.ptr = 0;
-	if (ac < 4) 
+	size_t i;
+	size_t len;
+
+	if (dst != NULL || src != NULL)
 	{
-		if (check_format(av[1], ".cub"))
+		i = 0;
+		len = ft_strlen(src);
+		if (dstsize <= 0)
+			return (len);
+		while (src[i] != '\0' && i < dstsize - 1)
 		{
-			if (ac == 3 && check_arg(av[2], "--save"))
-			{
-				save = 1;
-				run_program(save, av/*, t_mlx *mlx*/);
-			}
-			else if (ac == 2)
-				run_program(save, av/*, t_mlx *mlx*/);
+			dst[i] = src[i];
+			i++;
 		}
-		else
-			write(2, "Error : Invalid arguments\n", 26);
+		dst[i] = '\0';
+		return (len);
 	}
-	else
-		write(2, "Error : Invalid arguments\n", 26);
-	
 	return (0);
 }
