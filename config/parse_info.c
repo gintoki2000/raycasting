@@ -74,32 +74,56 @@ void	parse_color(t_info *info, char *line)
 	tab = NULL;
 }
 
+void	parse_map(t_info *info, int fd, char *line)
+{
+	char *map_tmp;
+
+	map_tmp = ft_strdup(line);
+	map_tmp = ft_strjoin(map_tmp, ".");
+	free(line);
+	line = NULL;
+	while (get_next_line(fd, &line) && ft_isdigit(line[0]))
+	{
+		map_tmp = ft_strjoin(map_tmp, line);
+		map_tmp = ft_strjoin(map_tmp, ".");
+		free(line);
+		line = NULL;
+	}
+	// Need to check whether the map is valid or not? If not, return error right here
+	// Có thể để một struct riêng về m map tại đây?
+	info->num_rows = ft_count_words(map_tmp, '.');
+	info->map = ft_split(map_tmp, '.');
+	info->num_cols = ft_strlen(info->map[0]);
+	free(map_tmp);
+	map_tmp = NULL;
+}
+
 
 int *parse_info(int fd, t_info *info)
 {
 	char *line = NULL;
-	while (get_next_line(fd, &line))
+	while (get_next_line(fd, &line) && line[0] != '1')
 	{
 		if (line[0] == 'R')
 			parse_resolution(info, line);
 		else if (ft_strncmp2(line, "NO", 2) || ft_strncmp2(line, "SO", 2) || ft_strncmp2(line, "WE", 2) || ft_strncmp2(line, "EA", 2) )
 			parse_texture(info, line);
-		else if (line[0] == 'S')
+		else if (line[0] == 'S' && line[1] != 'O')
 			parse_texture_sprite(info, line);
 		else if (line[0] == 'F' || line[0] == 'C')
 			parse_color(info, line);
-/*		else if (line[0] == '1') // cái này phải xem lại
-		{
-			parse_map(info, line);
-			return (0);
-		}
-		else
+/*		else
 			ft_error();
 */
 		free(line);
 		line = NULL;
 	}
-	return 0;
+	parse_map(info, fd, line); // cái này phải xem lại, need to check validity of the map.
+
+
+		
+	
+	return (0);
 }
 
 
@@ -124,6 +148,8 @@ void	init_info(t_info *info)
 {
 	info->window_w = 0;
 	info->window_h = 0;
+	info->floor_color = 0;
+	info->ceiling_color = 0;
 	
 	info->north_texture = NULL;
 	info->south_texture = NULL;
@@ -131,6 +157,7 @@ void	init_info(t_info *info)
 	info->west_texture = NULL;
 
 	info->sprite_texture = NULL;
+	info->map = NULL;
 	
 }
 
@@ -154,7 +181,7 @@ int	run_program(int save, char **av/*, t_mlx *mlx*/)
 	}
 	else
 	{
-		//Todo: 
+		//Todo: raycasting. inspired: ft_management_program
 	}
 	//Check parsing:
 	printf("width = %d\n", info.window_w);
@@ -166,6 +193,23 @@ int	run_program(int save, char **av/*, t_mlx *mlx*/)
 	printf("sprite_texture = %s\n", info.sprite_texture);
 	printf("ceiling_color = %d\n", info.ceiling_color);
 	printf("floor_color = %d\n", info.floor_color);
+
+	int i = 0;
+	//unsigned long len_info_map = sizeof(info.map);
+	//unsigned long len_info_map_element = sizeof(info.map[0]);
+	//unsigned long len = len_info_map / len_info_map_element;
+	int l = ft_strlen(*info.map);
+	int l2 = ft_strlen(*(info.map + 3));
+	while (i < info.num_rows)
+	{
+		printf("map line %2d: |%s|\n", i, info.map[i]);
+		i++;
+	}
+	
+	printf("map.info length = %d\n", l);
+	printf("map.info length = %d\n", l2);
+	printf("info num row = %d\n", info.num_rows);
+	printf("info num col = %d\n", info.num_cols);
 	return (0);
 }
 	

@@ -26,7 +26,7 @@ typedef struct s_info
 	int window_h;
 	int num_rows;
 	int num_cols;
-	char *map;
+	char **map;
 	char *north_texture;
 	char *south_texture;
 	char *west_texture;
@@ -59,4 +59,5 @@ void	parse_texture_sprite(t_info *info, char *line);
 void	parse_texture(t_info *info, char *line);
 void	parse_color(t_info *info, char *line);
 void 	parse_resolution(t_info *info, char *line);
+void	parse_map(t_info *info, int fd, char *line);
 #endif
